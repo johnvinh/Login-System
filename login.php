@@ -37,10 +37,13 @@ $hashed_password = $stmt->fetch()['password'];
 // Password matches
 if (password_verify($_POST['password'], $hashed_password)) {
     echo 'Login successful!';
-    die();
 }
 // Password does not match
 else {
     echo 'Incorrect password!';
     die();
 }
+
+session_start();
+$_SESSION['username'] = $_POST['username'];
+header("refresh:2;url=index.php");
