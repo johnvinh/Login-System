@@ -32,7 +32,13 @@ try {
 // Query for the user's password
 $stmt = $pdo->prepare("SELECT password FROM users WHERE username = ?");
 $stmt->execute([$_POST['username']]);
-$hashed_password = $stmt->fetch()['password'];
+// Check if user exists
+$hashed_password = $stmt->fetch();
+if (!$hashed_password) {
+    echo 'No such user!';
+    die();
+}
+$hashed_password = $hashed_password['password'];
 
 // Password matches
 if (password_verify($_POST['password'], $hashed_password)) {
