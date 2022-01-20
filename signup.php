@@ -22,6 +22,12 @@ else if (!isset($_POST['password-repeat'])) {
     die();
 }
 
+// Ensure passwords are the same
+if ($_POST['password'] !== $_POST['password-repeat']) {
+    echo 'Passwords do not match!';
+    die();
+}
+
 $dsn = "mysql:host=localhost;dbname=authenticationtest;charset=utf8mb4";
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
